@@ -9,4 +9,5 @@ Route::get('/', function () {
 
 Route::controller(UserController::class)->group(function () {
     Route::post('/users', 'store');
+    Route::put('/users/{user}', 'update');
 });
