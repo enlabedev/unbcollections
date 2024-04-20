@@ -29,7 +29,6 @@ class User extends Authenticatable
 
     protected $encryptable = [
         'name',
-        'email',
         'lastname',
         'phone'
     ];
