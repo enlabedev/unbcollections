@@ -17,7 +17,7 @@ trait Encryptable
         $value = parent::getAttribute($key);
         if (in_array($key, $this->encryptable)) {
             try {
-                $value = Crypt::decrypt($value);
+                $value = Crypt::decryptString($value);
             } catch (\Exception $e) {
                 return $value;
             }
@@ -38,7 +38,7 @@ trait Encryptable
             $value = "";
         }
         if (in_array($key, $this->encryptable) && $value != "") {
-            $value = Crypt::encrypt($value);
+            $value = Crypt::encryptString($value);
         }
         return parent::setAttribute($key, $value);
     }

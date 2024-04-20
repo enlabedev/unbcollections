@@ -24,4 +24,14 @@ class UserController extends Controller
         $user->delete();
         return response()->json(null, 204);
     }
+
+    public function index()
+    {
+        return response()->json(User::all(), 200);
+    }
+
+    public function show(User $user)
+    {
+        return response()->json($user, 200);
+    }
 }
