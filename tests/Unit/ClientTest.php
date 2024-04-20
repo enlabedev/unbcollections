@@ -62,6 +62,19 @@ class ClientTest extends TestCase
         $response->assertStatus(302);
     }
 
-    
+    public function test_user_can_be_deleted(): void
+    {
+        $user = User::factory()->create();
+        $response = $this->delete("/users/{$user->id}");
+        $response->assertStatus(204);
+        $this->assertSoftDeleted('users', ['id' => $user->id]);
+    }
+
+
+    public function test_user_cannot_be_deleted(): void
+    {
+        $response = $this->delete("/users/999");
+        $response->assertStatus(404);
+    }
 
 }
