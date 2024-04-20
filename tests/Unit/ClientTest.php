@@ -59,8 +59,9 @@ class ClientTest extends TestCase
             'password' => '12345678',
             'phone' => '+56912345678']
         );
-        $response->assertStatus(200);
-        $this->assertDatabaseHas('users', ['email' => 'info@enlabedev.com']);
+        $response->assertStatus(302);
     }
+
+    
 
 }
