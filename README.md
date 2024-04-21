@@ -11,6 +11,7 @@ cp .env.example .env
 sail php artisan key:generate
 sail php artisan migrate --seed
 npm install
+npm run build
 ```
 
 Usuario para pruebas
