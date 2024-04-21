@@ -30,7 +30,14 @@ class UserCreate extends Component
         $this->password = bcrypt($this->password);
 
         User::create(
-            $this->only(['name', 'lastname', 'email', 'phone', 'password'])
+            [
+                'name' => $this->name,
+                'lastname' => $this->lastname,
+                'email' => $this->email,
+                'phone' => $this->phone,
+                'password' => $this->password,
+            
+            ]
         );
 
         return redirect()->to('/view/users');

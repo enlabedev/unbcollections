@@ -9,9 +9,9 @@ use App\Livewire\UserEdit;
 
 Route::view('/', 'welcome');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+// Route::view('dashboard', 'dashboard')
+//     ->middleware(['auth'])
+//     ->name('dashboard');
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
@@ -28,7 +28,15 @@ Route::controller(UserController::class)->group(function () {
     Route::get('/users/{user}', 'show');
 });
 
+Route::middleware(['middleware' => 'auth'])->group(function () {
+    Route::get('dashboard', UserList::class)->name('dashboard');
+    Route::prefix('view')->group(function () {
+        Route::get('/users', UserList::class)->name('user.index');
+        Route::get('/users/create', UserCreate::class)->name('user.create');
+        Route::get('/users/edit/{user}', UserEdit::class)->name('user.edit');
+    });
+});
 
-Route::get('/view/users', UserList::class)->name('user.index');
-Route::get('/view/users/create', UserCreate::class)->name('user.create');
-Route::get('/view/users/edit/{user}', UserEdit::class)->name('user.edit');
+
+
+
