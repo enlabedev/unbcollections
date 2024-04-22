@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 //use App\Livewire\Users\UserList;
-use App\Livewire\UserList;
-use App\Livewire\UserCreate;
-use App\Livewire\UserEdit;
+use App\Livewire\Users\UserList;
+use App\Livewire\Users\UserCreate;
+use App\Livewire\Users\UserEdit;
 
 Route::view('/', 'welcome');
 

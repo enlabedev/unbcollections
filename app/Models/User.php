@@ -8,11 +8,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Traits\Encryptable;
+use App\Traits\HashesPassword;
 
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, SoftDeletes, Encryptable;
+    use HasFactory, Notifiable, SoftDeletes, Encryptable, HashesPassword;
 
     /**
      * The attributes that are mass assignable.

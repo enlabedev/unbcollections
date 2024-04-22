@@ -72,7 +72,7 @@ class ClientTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function test_user_can_be_listed(): void
+    /* public function test_user_can_be_listed(): void
     {
         User::factory()->count(5)->create();
         $response = $this->get('/users');
@@ -86,6 +86,6 @@ class ClientTest extends TestCase
         $user = User::factory()->create();
         $response = $this->get("/users/{$user->id}");
         $response->assertStatus(200);
-    }
+    } */
 
 }

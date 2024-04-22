@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Users;
 
 use Livewire\Component;
 use App\Models\User;
+use App\Http\Controllers\UserController;
 
 class UserList extends Component
 {
@@ -11,10 +12,10 @@ class UserList extends Component
         $user->delete();
     }
 
-    public function render()
+    public function render(UserController $userController)
     {
         return view('livewire.pages.users.list',[
-            'users' => User::all()
+            'users' => $userController->index()
         ])->layout('layouts.app');
     }
 }

@@ -2,36 +2,47 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Http\Services\UserService;
 use App\Http\Requests\UserRequest;
+use App\Helpers\Message;
+
 
 class UserController extends Controller
 {
+    protected $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     public function store(UserRequest $request)
     {
-        $user = User::create($request->all());
-        return response()->json($user, 201);
+        $this->userService->createUser($request->all());
+        return redirect()->route('user.index')->with('success', 'User created successfully');
     }
 
-    public function update(UserRequest $request, User $user)
+    public function update(UserRequest $request, $id)
     {
-        $user->update($request->all());
-        return response()->json($user, 200);
+        
+        $this->userService->updateUser($request->all(), $id);
+        return redirect()->route('user.index')->with('success', 'User updated successfully');
+        
     }
 
-    public function delete(User $user)
+    public function delete($id)
     {
-        $user->delete();
-        return response()->json(null, 204);
+        $this->userService->deleteUser($id);
+        return redirect()->route('user.index')->with('success', 'User deleted successfully');
     }
 
     public function index()
     {
-        return response()->json(User::all(), 200);
+        return $this->userService->getAllUsers();
     }
 
-    public function show(User $user)
+    public function show($id)
     {
-        return response()->json($user, 200);
+        return  $this->userService->getUserById($id);
     }
 }

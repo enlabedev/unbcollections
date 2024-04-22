@@ -1,31 +1,22 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Users;
 
 use Livewire\Component;
+use App\Http\Controllers\UserController;
+use App\Http\Requests\UserRequest;
 use App\Models\User;
-use Livewire\Attributes\Rule;
 
 class UserEdit extends Component
 {
-    public User $user;
-
-    #[Rule('required')]
+    public $user;
     public $name = '';
-
-    #[Rule('required')]
     public $lastname = '';
-
-    #[Rule('required|email')]
     public $email = '';
-
-    #[Rule('required')]
     public $phone = '';
-
-    #[Rule('required')]
     public $password = '';
 
-    public function mount($user)
+    public function mount(User $user)
     {
         $this->user = $user;
         $this->name = $user->name;
@@ -36,19 +27,15 @@ class UserEdit extends Component
         
     }
 
-    public function save()
+    public function save(UserController $userController)
     {
-        $this->validate();
-
-        if ($this->password) {
-            $this->user->password = bcrypt($this->password);
-        }
-
-        $this->user->update(
-            $this->only(['name', 'lastname', 'email', 'phone', 'password'])
-        );
-
-        return redirect()->to('/view/users');
+        $userController->update(new UserRequest([
+            'name' => $this->name,
+            'lastname' => $this->lastname,
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'password' => $this->password,
+        ]), $this->user->id);
     }
 
     public function render()
